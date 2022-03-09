@@ -437,6 +437,7 @@ pprint.pprint(wv_from_bin_pl.most_similar(
 # Write your incorrect analogy exploration code here.
 pprint.pprint(wv_from_bin_pl.most_similar(
     positive=["sportowiec", "pieczywo"], negative=["sport"]))
+# there is no baker, but should
 # ------------------
 
 
@@ -459,12 +460,18 @@ pprint.pprint(wv_from_bin_pl.most_similar(
 pprint.pprint(wv_from_bin_pl.most_similar(
     positive=['mądry', 'zwierzę']))
 pprint.pprint(wv_from_bin_pl.most_similar(
+    positive=['głupi', 'zwierzę']))
+# człowiek is biased in direction "mądry"
+pprint.pprint(wv_from_bin_pl.most_similar(
     positive=['kobieta', 'żołnierz'], negative=['mężczyzna']))
-
+pprint.pprint(wv_from_bin_pl.most_similar(
+    positive=['mężczyzna', 'żołnierz'], negative=['kobieta']))
+# żołnierz is biased in direction "mężczyzna"
 #################################
 # Section 3:
 # English part
 #################################
+# it takes a lot of time to download it
 def load_word2vec():
     """ Load Word2Vec Vectors
         Return:
