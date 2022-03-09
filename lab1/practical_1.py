@@ -437,7 +437,7 @@ pprint.pprint(wv_from_bin_pl.most_similar(
 # Write your incorrect analogy exploration code here.
 pprint.pprint(wv_from_bin_pl.most_similar(
     positive=["sportowiec", "pieczywo"], negative=["sport"]))
-# there is no baker, but should
+# there is no "piekarz", but should
 # ------------------
 
 
@@ -461,11 +461,13 @@ pprint.pprint(wv_from_bin_pl.most_similar(
     positive=['mądry', 'zwierzę']))
 pprint.pprint(wv_from_bin_pl.most_similar(
     positive=['głupi', 'zwierzę']))
-# człowiek is biased in direction "mądry"
+# "człowiek" is biased in direction "mądry", "pies" in direction "głupi"
 pprint.pprint(wv_from_bin_pl.most_similar(
     positive=['kobieta', 'żołnierz'], negative=['mężczyzna']))
 pprint.pprint(wv_from_bin_pl.most_similar(
     positive=['mężczyzna', 'żołnierz'], negative=['kobieta']))
+pprint.pprint(wv_from_bin_pl.most_similar(
+    positive=['żołnierz', 'płeć']))
 # żołnierz is biased in direction "mężczyzna"
 #################################
 # Section 3:
