@@ -40,6 +40,7 @@ class NMT(nn.Module):
         self.hidden_size = hidden_size
         self.dropout_rate = dropout_rate
         self.vocab = vocab
+        self.embed_size = embed_size
 
         # default values
         self.encoder = nn.LSTM(embed_size, hidden_size, bidirectional=True).to(DEVICE)
@@ -48,7 +49,7 @@ class NMT(nn.Module):
         self.c_projection = nn.Linear(2*hidden_size, hidden_size, bias=False).to(DEVICE)
         self.att_projection = nn.Linear(2*hidden_size, hidden_size, bias=False).to(DEVICE)
         self.combined_output_projection = nn.Linear(3*hidden_size, hidden_size, bias=False).to(DEVICE)
-        self.target_vocab_projection = nn.Linear(len(vocab.tgt), 1, bias=False).to(DEVICE)
+        self.target_vocab_projection = nn.Linear(hidden_size, len(vocab.tgt), bias=False).to(DEVICE)
         self.dropout = nn.Dropout(dropout_rate).to(DEVICE)
 
         # YOUR CODE HERE
@@ -221,7 +222,7 @@ class NMT(nn.Module):
         Y = self.model_embeddings.target(target_padded)
         for Y_t in torch.split(Y, 1):
             Y_t = torch.squeeze(Y_t, dim=0)
-            YBar_t = torch.cat([Y_t, o_prev], dim=0)
+            YBar_t = torch.cat([Y_t, o_prev], dim=1)
             dec_state, o_t, e_t = self.step(YBar_t, dec_state, enc_hiddens, enc_hidden_proj, enc_masks)
             combined_outputs.append(o_t)
             o_prev = o_t
