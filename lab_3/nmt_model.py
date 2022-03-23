@@ -15,9 +15,6 @@ from model_embeddings import ModelEmbeddings
 
 Hypothesis = namedtuple('Hypothesis', ['value', 'score'])
 
-DEVICE = "cpu"
-
-
 class NMT(nn.Module):
     """ Simple Neural Machine Translation Model:
         - Bidrectional LSTM Encoder
@@ -43,14 +40,14 @@ class NMT(nn.Module):
         self.embed_size = embed_size
 
         # default values
-        self.encoder = nn.LSTM(embed_size, hidden_size, bidirectional=True).to(DEVICE)
-        self.decoder = nn.LSTMCell(embed_size + hidden_size, hidden_size).to(DEVICE)
-        self.h_projection = nn.Linear(2*hidden_size, hidden_size, bias=False).to(DEVICE)
-        self.c_projection = nn.Linear(2*hidden_size, hidden_size, bias=False).to(DEVICE)
-        self.att_projection = nn.Linear(2*hidden_size, hidden_size, bias=False).to(DEVICE)
-        self.combined_output_projection = nn.Linear(3*hidden_size, hidden_size, bias=False).to(DEVICE)
-        self.target_vocab_projection = nn.Linear(hidden_size, len(vocab.tgt), bias=False).to(DEVICE)
-        self.dropout = nn.Dropout(dropout_rate).to(DEVICE)
+        self.encoder = nn.LSTM(embed_size, hidden_size, bidirectional=True)
+        self.decoder = nn.LSTMCell(embed_size + hidden_size, hidden_size)
+        self.h_projection = nn.Linear(2*hidden_size, hidden_size, bias=False)
+        self.c_projection = nn.Linear(2*hidden_size, hidden_size, bias=False)
+        self.att_projection = nn.Linear(2*hidden_size, hidden_size, bias=False)
+        self.combined_output_projection = nn.Linear(3*hidden_size, hidden_size, bias=False)
+        self.target_vocab_projection = nn.Linear(hidden_size, len(vocab.tgt), bias=False)
+        self.dropout = nn.Dropout(dropout_rate)
 
         # YOUR CODE HERE
         # TODO - Initialize the following variables:
